@@ -146,7 +146,7 @@ function Shop() {
                           label: "sort by latest",
                         },
                       ]}
-                      menuPortalTarget={document.body}
+                      menuPortalTarget={document??.body}
                       styles={{
                         menuPortal: (base) => ({
                           ...base,
@@ -202,7 +202,7 @@ function Shop() {
                           label: "sort by latest",
                         },
                       ]}
-                      menuPortalTarget={document.body}
+                      menuPortalTarget={document?.body}
                       styles={{
                         menuPortal: (base) => ({
                           ...base,
