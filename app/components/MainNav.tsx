@@ -48,7 +48,7 @@ function MainNav() {
       </List>
     </Box>
   );
-  const container =!Boolean(window) ? () => window.document.body : undefined;
+  // const container =!Boolean(window) ? () => window.document.body : undefined;
 
   return (
     <>
