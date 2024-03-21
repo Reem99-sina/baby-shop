@@ -34,10 +34,9 @@ function ProductModel() {
        
     // },[appear])
 
-    console.log(appear,"appear")
     const product=useMemo(()=>{
        return  products?.find((ele,index)=>index==randomIndex)
-    },[products,randomIndex])
+    },[randomIndex])
 
   return (
     <Box sx={{position:"fixed",color:"black",m:4,bottom:appear?0:"-15%",left:0,zIndex:2000,borderRadius:"8px",transition:"bottom 1s",backgroundColor:"white",boxShadow: "0px 0px 10px 0px rgba(0,0,0,.1)"}}>

@@ -154,7 +154,8 @@ function ProductCategory({ params }: { params: { title: string } }) {
                     label: "sort by latest",
                   },
                 ]}
-                menuPortalTarget={document.body}
+                menuPortalTarget={typeof window!=="undefined"?window?.document?.body:null}
+
                 styles={{
                   menuPortal: (base) => ({
                     ...base,

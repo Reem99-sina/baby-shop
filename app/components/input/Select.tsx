@@ -1,31 +1,27 @@
 "use client";
 import ReactSelect from "react-select";
-const Select = ({
-  disabled,
-  label,
-  options,
-  onChange,
-  value,
-}: {
+import {Box} from "@mui/material"
+const Select:React.FC<{
   disabled?: boolean;
   label: string;
   options: Record<string, any>[];
   onChange: (value: Record<string, any>) => void;
   value?: Record<string, any>;
+}> = ({
+  disabled,
+  label,
+  options,
+  onChange,
+  value,
 }) => {
-  return (
-    <div className="z-[100]">
-      {/* <label className="block text-sm font-medium leading-6 text-gray-900">
-        {label}
-      </label> */}
-      <div className="mt-2" style={{width:"100%"}}>
+  return (<Box  sx={{width:"100%"}}>
         <ReactSelect
           isDisabled={disabled}
           value={value}
           onChange={onChange}
           isMulti
           options={options}
-          menuPortalTarget={document.body}
+          // menuPortalTarget={typeof window!=="undefined"?.document?.body:undefined}
           styles={{
             menuPortal: (base) => ({
               ...base,
@@ -39,8 +35,7 @@ const Select = ({
             control: () => "text-sm"
           }}
         />
-      </div>
-    </div>
+      </Box>
   );
 };
 export default Select;
