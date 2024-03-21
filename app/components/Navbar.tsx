@@ -46,7 +46,7 @@ function Navbar() {
     setCategorys(
       productCatergorys.filter((category) => category.title.includes(search))
     );
-  },[products,productCatergorys,search])
+  },[search])
   useMemo(() => {
     if (Boolean(search)) {
       searchInProducts();

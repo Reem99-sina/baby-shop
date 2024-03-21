@@ -21,7 +21,7 @@ function ProductModel() {
         return () => {
             clearInterval(intervalRadom) 
           };
-    },[setRandomIndex,products,appear])
+    },[setRandomIndex,appear])
 
     // const why=useMemo(()=>{
     //     if(appear){

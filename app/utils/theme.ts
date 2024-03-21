@@ -25,9 +25,6 @@ export const theme = createTheme({
         },
         
       },
-    },
-    "&.Mui-focusVisible": {
-      "outline": "2px solid #4bc6ff"
     }
   },
 });
