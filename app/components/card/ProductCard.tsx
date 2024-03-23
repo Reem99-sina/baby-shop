@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import ZoomOutMapIcon from "@mui/icons-material/ZoomOutMap";
-import { useState } from "react";
+import { useState,useMemo } from "react";
 import DialogProduct from "./DialogProduct";
 import { useRouter } from "next/navigation";
 import useActiveFilter from "@/app/hooks/useFilter";
@@ -25,7 +25,7 @@ const ProductCard = ({
   categories,
   href,
   realPrice,
-  sizes
+  sizes,category
 }: {
   title: string;
   image: string;
@@ -36,12 +36,20 @@ const ProductCard = ({
   categories: string[];
   href: string;
   realPrice?: string;
-  sizes?:any
+  sizes?:any;
+  category?:any
 }) => {
   const [appear, setAppear] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const { set, add, remove, update, Filters } = useActiveFilter();
+  const colors=useMemo(()=>{
+    let newColors=[] as {_id:string,name:string,hex:string}[]
+
+    color?.map((colorEle:{_id:string,name:string,hex:string}[]|string) => Array?.isArray(colorEle) && colorEle?.map((eachColor:{_id:string,name:string,hex:string}) =>newColors?.map((elem)=>elem?.name)?.includes(eachColor.name)==false?newColors.push(eachColor):null))
+    return newColors
+  },[color])
+  console.log(colors,"colors")
   return (
     <>
       <Card
@@ -88,7 +96,7 @@ const ProductCard = ({
           <Typography gutterBottom variant="h5" component="div">
             {title}
           </Typography>
-          <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
+          <Box sx={{ display: "flex", justifyContent: "space-evenly" ,gap:2}}>
             {color?.map(
               (colorEle: string) =>
                 !Array.isArray(colorEle) && (
@@ -98,19 +106,18 @@ const ProductCard = ({
                     sx={{
                       backgroundColor: colorEle,
                       width: "15px",
-                      p: 1,
+                      p: 1.5,
                       height: "15px",
                       borderRadius: "50%",
                       display: "block",
                       border: "1px solid grey",
+                      outlineOffset:"4px",
+                      outline:"1px solid gray",
                     }}
                   />
                 )
             )}
-            {color.map(
-              (color) =>
-                Array.isArray(color) &&
-                color.map(
+            {colors?.map(
                   (eachColor) =>
                     Boolean(eachColor.hex) && (
                       <Typography
@@ -119,16 +126,17 @@ const ProductCard = ({
                         sx={{
                           backgroundColor: `#${eachColor.hex}`,
                           width: "15px",
-                          p: 1,
+                          p: 1.5,
                           height: "15px",
                           borderRadius: "50%",
                           display: "block",
                           border: "1px solid grey",
+                          outlineOffset:"4px",
+                          outline:"1px solid gray",
                         }}
                       />
                     )
-                )
-            )}
+                )}
           </Box>
           <Typography
             gutterBottom
@@ -159,7 +167,7 @@ const ProductCard = ({
           categories,
           realPrice,
           href,
-          sizes
+          sizes,category
         }}
       />
     </>

@@ -7,11 +7,12 @@ import useActiveCart, { ActiveCartStore } from "@/app/hooks/useCart";
 import ButtonCustom from "@/app/components/button/Button";
 import ProductDetailStatic from "./component/productDetail";
 import axios from "axios"
+import {useRouter}from "next/navigation"
 import { FieldValues, useForm } from "react-hook-form";
 import Select from "@/app/components/input/Select";
-
 function ProductDetail({params}:{params:{productHref:string}}) {
- 
+ const [active,setActive]= useState(0)
+ const router=useRouter()
   const { carts, add, remove,update } = useActiveCart() as ActiveCartStore;
   const[product,setProduct]=useState<any>({})
   const {
@@ -37,6 +38,11 @@ function ProductDetail({params}:{params:{productHref:string}}) {
    const existCard=useMemo(()=>{
     return carts?.find((cart)=>cart?.slug==product?.slug)
   },[product,carts])
+  const colors=useMemo(()=>{
+    let newColors=[]as {_id:string,name:string,hex:string}[]
+    product?.sizes?.map((ele:any)=>ele?.colors)?.map((colorEle:{_id:string,name:string,hex:string}[]) => Array?.isArray(colorEle) && colorEle?.map((eachColor:{_id:string,name:string,hex:string}) =>newColors?.map((elem)=>elem?.name)?.includes(eachColor.name)==false?newColors.push(eachColor):null))
+    return newColors
+  },[product?.sizes])
   const price =useMemo(()=>{
    
    return product?.sizes?.find((sizecom:any)=>sizecom?.colors?.map((color:any)=>color?._id)?.includes(detailProduct?._id)||sizecom?.size==size?.size)?.price
@@ -48,15 +54,15 @@ function ProductDetail({params}:{params:{productHref:string}}) {
   },[params.productHref,setProduct])
    const numberofCart = useMemo(() => {
     return carts
-      ?.filter((cart: any) => cart?.color?.name ==detailProduct?.name)
+      ?.filter((cart: any) => (cart?.color?.name ==detailProduct?.name)&&cart?.href==product?.slug)
       ?.map((ele) => ele?.count)
       ?.reduce((total, countnum) => total + countnum, 0);
-  }, [detailProduct,carts]);
+  }, [detailProduct,carts,product]);
 
 useMemo(()=>{
   getProduct()
 },[getProduct])
-console.log(detailProduct,countProduct,"countProduct",numberofCart>0)
+
   return (
     <>
     <Container sx={{my:5}}>
@@ -89,9 +95,9 @@ console.log(detailProduct,countProduct,"countProduct",numberofCart>0)
             <Link
               underline="hover"
               color="inherit"
-              href="/"
+              href="/cate"
             >
-              {product?.categories?.join(" & ")}
+              {product?.category?.name}
             </Link>
           </Breadcrumbs>
           <Typography variant="h4" sx={{fontWeight:"700"}}>
@@ -107,24 +113,26 @@ console.log(detailProduct,countProduct,"countProduct",numberofCart>0)
           {!Array.isArray(product?.sizes)?product?.sizes:"$"+Math.max(...product?.sizes?.map((size:any)=>size?.price))+"-"+"$"+Math.min(...product?.sizes?.map((size:any)=>size?.price))}
           </Typography>
           <Divider/>
-            <Typography sx={{ display: "flex", alignItems: "center", mx: 1 }}>
+            <Box sx={{ display: "flex", alignItems: "center", my: 1 }}>
               Select color:
               <Box sx={{ display: "flex" }}>
-              {product?.sizes?.map((size:any)=>size.colors.map((color:any)=>(<Typography
-                    component="span"
-                    sx={{
-                      backgroundColor: `#${color.hex}`,
-                      mx: 0.5,
-                      width: "15px",
-                      p: 1,
-                      height: "15px",
-                      borderRadius: "50%",
-                      display: "block",
-                      border: "1px solid grey",
-                    }}
-                    onClick={()=>{setValue("color",{...color})}}
-                    key={color}
-                  />)))}
+              {colors.map((color:any,index:number)=>(   <Typography
+    component="span"
+    sx={{
+      backgroundColor: `#${color.hex}`,
+      mx: 1,
+      width: "15px",
+      outlineOffset:"4px",
+      outline:active==color?._id?"1px solid black":"1px solid gray",
+      p: 2,
+      height: "15px",
+      borderRadius: "50%",
+      display: "block",
+      border: "1px solid grey",
+    }}
+    onClick={()=>{setValue("color",{...color,price:price});setActive(color?._id);setValue("count",1)}}
+    key={color}
+  />))}
                  
                 {product?.color?.map((colorEle: string) => (
                   <Typography
@@ -133,7 +141,7 @@ console.log(detailProduct,countProduct,"countProduct",numberofCart>0)
                       backgroundColor: colorEle,
                       mx: 0.5,
                       width: "15px",
-                      p: 1,
+                      p: 2,
                       height: "15px",
                       borderRadius: "50%",
                       display: "block",
@@ -143,7 +151,7 @@ console.log(detailProduct,countProduct,"countProduct",numberofCart>0)
                   />
                 ))}
               </Box>
-            </Typography>
+            </Box>
             <Box sx={{ display: "flex" }}>
             <Typography sx={{ mx: 1 }}>
              Age:
@@ -151,8 +159,8 @@ console.log(detailProduct,countProduct,"countProduct",numberofCart>0)
              <Select
               disabled={false}
               label="size"
-              value={size}
-             onChange={(value)=>setValue("size",value[0]?.value)}
+              // value={size}
+             onChange={(value)=>setValue("size",value?.value)}
              options={product?.sizes?.map((ele:any)=>({
               value:ele,
               id:ele.size,
@@ -180,7 +188,7 @@ console.log(detailProduct,countProduct,"countProduct",numberofCart>0)
               >
                 -
               </Button>
-              {numberofCart+countProduct}
+              {numberofCart?numberofCart:countProduct}
 
               <Button
                 onClick={() => setValue("count",countProduct+1)}
@@ -193,13 +201,15 @@ console.log(detailProduct,countProduct,"countProduct",numberofCart>0)
             </Box>
             <ButtonCustom
               variant="outlined"
-              onClick={() =>numberofCart>0?update(detailProduct?.name,{...product,count:numberofCart+countProduct}):add({
+              onClick={() =>{numberofCart>0?update(detailProduct?.name,{...product,count:numberofCart+countProduct}):add({
 desc:product?.desc||product?.description
 ,href:product?.slug||product?.href
 ,image:product?.image||Array.isArray(product?.images)?product?.images[0]?.secure_url:"",
 title:product?.name||product?.title,
 size:size
-,count:countProduct<=0?1:countProduct,color:{...detailProduct,price:price||product?.price}})}
+,count:countProduct<=0?1:countProduct,color:{...detailProduct,price:price||product?.price}});
+router.refresh()
+}}
               sx={{
                 border: "2px solid gray",
                 borderRadius: "10px",

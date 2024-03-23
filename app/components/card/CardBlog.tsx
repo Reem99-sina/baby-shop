@@ -51,7 +51,7 @@ function CardBlog({
         alt="green iguana"
         width="fit-content"
         image={image}
-        sx={{ width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" } }}
+        sx={{ width: { lg: "70%", md: "100%", sm: "100%", xs: "100%" } }}
       />
       <Box
         sx={{
@@ -67,7 +67,7 @@ function CardBlog({
         <InsertLinkIcon sx={{ m: 1, cursor: "pointer" }} />
       </Box>
       <CardContent
-        sx={{ width: { lg: "30%", md: "30%", sm: "100%", xs: "100%" } }}
+        sx={{ width: { lg: "30%", md: "100%", sm: "100%", xs: "100%" } }}
       >
         <Box sx={{ display: "flex", p: 2, alignItems: "center" }}>
           <PersonIcon />

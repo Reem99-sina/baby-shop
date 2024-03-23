@@ -50,13 +50,14 @@ function Collection() {
     const { className, style, onClick } = props;
     return (
       <ArrowForwardIosIcon
-        className={className}
+        // className={className}
         sx={{
           ...style,
           display: "block",
           color: "black",
           position: "absolute",
-          right: "16px",
+          right: "5%",
+          top:"50%",
           fontSize: "54px",
         }}
         onClick={onClick}
@@ -68,13 +69,14 @@ function Collection() {
     const { className, style, onClick } = props;
     return (
       <ArrowBackIosIcon
-        className={className}
+        // className={className}
         sx={{
           ...style,
           display: "block",
           color: "black",
           position: "absolute",
-          left: "16px",
+          left: "5%",
+          top:"50%",
           fontSize: "54px",
           zIndex: 10,
         }}
@@ -88,16 +90,18 @@ function Collection() {
         <Box
           sx={{
             backgroundImage: `url(/images/babyshop2-offerslider-pic2.webp)`,
-            width: "90%",
+            maxWidth: "100%",
             height: "500px",
-            backgroundPosition: "center right",
+            backgroundPosition:"68% center",
+            backgroundSize:"cover",
             color: "black",
             display: "flex !important",
             alignItems: "center",
             justifyContent: "center",
+            py:1
           }}
         >
-          <Container>
+          <Container fixed>
             <ButtonCustom
               variant="outlined"
               sx={{
@@ -109,12 +113,12 @@ function Collection() {
             >
               2023
             </ButtonCustom>
-            <Typography variant="h3" sx={{ my: 2, width: "40%" }}>
+            <Typography variant="h4" sx={{ my: 2, width: "55%" }}>
               New Autumn 2023 Collection
             </Typography>
             <Typography
               
-              sx={{ my: 2, width: "40%", display: "block" }}
+              sx={{ my: 2, width: "55%", display: "block" }}
             >
               Pede tellus lacinia ultrices faucibus dapibus ex pulvinar semper
               lobortis
@@ -141,16 +145,18 @@ function Collection() {
         <Box
           sx={{
             backgroundImage: `url(/images/babyshop2-offerslider-pic1.webp)`,
-            width: "90%",
+            maxWidth: "100%",
             height: "500px",
-            backgroundPosition: "center right",
+            backgroundPosition:" 68% center",
+            backgroundSize:"cover",
             color: "black",
             display: "flex !important",
             alignItems: "center",
             justifyContent: "center",
+            py:1
           }}
         >
-          <Container>
+          <Container fixed>
             <ButtonCustom
               variant="outlined"
               sx={{
@@ -162,12 +168,12 @@ function Collection() {
             >
               2023
             </ButtonCustom>
-            <Typography variant="h3" sx={{ my: 2, width: "40%" }}>
+            <Typography variant="h4" sx={{ my: 2, width: "55%" }}>
               Get ready to winter with our TOP class clothes
             </Typography>
             <Typography
               
-              sx={{ my: 2, width: "40%", display: "block" }}
+              sx={{ my: 2, width: "55%", display: "block" }}
             >
               Quis ipsum convallis vivamus augue mattis faucibus nec habitasse
               orci curabitur condimentum maximus himenaeos odio

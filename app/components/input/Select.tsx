@@ -5,8 +5,8 @@ const Select:React.FC<{
   disabled?: boolean;
   label: string;
   options: Record<string, any>[];
-  onChange: (value: Record<string, any>) => void;
-  value?: Record<string, any>;
+  onChange: (value: Record<string, any>|null) => void;
+  value?: Record<string, any>|null;
 }> = ({
   disabled,
   label,
@@ -19,7 +19,7 @@ const Select:React.FC<{
           isDisabled={disabled}
           value={value}
           onChange={onChange}
-          isMulti
+          isMulti={false}
           options={options}
           // menuPortalTarget={typeof window!=="undefined"?.document?.body:undefined}
           styles={{

@@ -25,6 +25,7 @@ function CardCustom({
       sx={{
         display: "flex",
         flex: 1,
+        flexWrap:"wrap",
         flexDirection: {
           lg: "row-reverse",
           md: "row-reverse",

@@ -52,11 +52,13 @@ function CartCard({ product }: { product: any }) {
                   backgroundColor: `#${product?.color?.hex}`,
                   mx: 0.5,
                   width: "15px",
-                  p: 1,
+                  p: 2,
                   height: "15px",
                   borderRadius: "50%",
                   display: "block",
                   border: "1px solid grey",
+                  outlineOffset:"4px",
+                  outline:"1px solid gray",
                 }}
               />
             </Typography>

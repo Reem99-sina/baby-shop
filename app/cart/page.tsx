@@ -77,7 +77,7 @@ function Cart() {
           separator={<NavigateNextIcon fontSize="small" />}
           sx={{ color: "gray" }}
         >
-          <Typography
+          <Box
             sx={{
               display: "flex",
               alignItems: "center",
@@ -98,8 +98,8 @@ function Cart() {
               1
             </Typography>
             cart
-          </Typography>
-          <Typography
+          </Box>
+          <Box
             sx={{
               display: "flex",
               alignItems: "center",
@@ -122,8 +122,8 @@ function Cart() {
               2
             </Typography>
             checkout
-          </Typography>
-          <Typography
+          </Box>
+          <Box
             sx={{
               display: "flex",
               alignItems: "center",
@@ -144,7 +144,7 @@ function Cart() {
               3
             </Typography>
             order
-          </Typography>
+          </Box>
         </Breadcrumbs>
       </Box>
       <Divider />

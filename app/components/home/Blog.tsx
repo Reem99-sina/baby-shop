@@ -44,8 +44,8 @@ function Blog() {
     appendDots: (dots: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined) => (
       <div
         style={{
-          bottom: "19%",
-          left: "90%",
+          bottom: "2%",
+          left: "83%",
           transform: "translateX(-50%)",
           position: "absolute",
         }}

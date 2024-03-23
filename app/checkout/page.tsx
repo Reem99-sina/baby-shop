@@ -75,7 +75,7 @@ function Checkout() {
           separator={<NavigateNextIcon fontSize="small" />}
           sx={{ color: "gray" }}
         >
-          <Typography
+          <Box
             sx={{
               display: "flex",
               alignItems: "center",
@@ -99,8 +99,8 @@ function Checkout() {
               <CheckSharpIcon sx={{ fontSize: "16px" }} />
             </Typography>
             cart
-          </Typography>
-          <Typography
+          </Box>
+          <Box
             sx={{
               display: "flex",
               alignItems: "center",
@@ -125,8 +125,8 @@ function Checkout() {
               2
             </Typography>
             checkout
-          </Typography>
-          <Typography
+          </Box>
+          <Box
             sx={{
               display: "flex",
               alignItems: "center",
@@ -147,7 +147,7 @@ function Checkout() {
               3
             </Typography>
             order
-          </Typography>
+          </Box>
         </Breadcrumbs>
       </Box>
       <Divider />
@@ -159,7 +159,7 @@ function Checkout() {
           justifyContent: "center",
         }}
       >
-        <Typography
+        <Box
           sx={{
             display: "flex",
             alignItems: "center",
@@ -176,7 +176,7 @@ function Checkout() {
             Have a coupon?
           </Typography>
           Click here to enter your code
-        </Typography>
+        </Box>
       </Box>
       <Divider />
       <Container>
@@ -263,6 +263,9 @@ function Checkout() {
               fullWidth={true}
               id="CompanyName"
             />
+            <Typography>
+            Country / Region 
+            </Typography>
             <Select
               // style={{ backgroundColor: "#f0f5f7", mb: 3 }}
               // placeholder=""
@@ -270,7 +273,7 @@ function Checkout() {
               options={[{ value: 1, label: "Uk" }]}
               disabled={Boolean(loading)}
               label={"Country / Region "}
-              onChange={()=>{}}
+              onChange={()=>console.log("")}
               // fullWidth={true}
             />
             <InputCustom
@@ -406,9 +409,9 @@ function Checkout() {
                     <Typography sx={{ fontWeight: "700" }} variant="h6">
                       {product.title}
                     </Typography>
-                    <Box sx={{ backgroundColor: "white", p: 1 }}>
+                    <Typography sx={{ backgroundColor: "white", p: 1 }}>
                       x{product.count}
-                    </Box>
+                    </Typography>
                   </Box>
                   <Typography variant="h6">Select color:</Typography>
                   <Typography

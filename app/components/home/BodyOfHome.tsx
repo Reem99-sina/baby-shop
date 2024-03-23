@@ -87,7 +87,7 @@ function BodyOfHome() {
         display: "flex",
 
         flexDirection: { lg: "row", md: "column", sm: "column", xs: "column" },
-        m: 2,
+        m: {lg:2,md:2,sm:5,xs:5},
         height: { lg: "600px", md: "unset", sm: "unset", xs: "unset" },
         gap: { sm: "10px", xs: "10px", md: "10px" },
         justifyContent: "flex-start",

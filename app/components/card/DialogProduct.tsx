@@ -28,6 +28,7 @@ const DialogProduct = ({
 }) => {
   const { carts, add, remove, update } = useActiveCart() as ActiveCartStore;
   let [count, setCount] = useState(0);
+  const [active,setActive]= useState<number|string>(0)
   const {
     register,
     handleSubmit,
@@ -51,17 +52,24 @@ const DialogProduct = ({
   }, [product, carts]);
   const numberofCart = useMemo(() => {
     return carts
-      ?.filter((cart: any) => cart?.color?.name ==detailProduct?.name)
+      ?.filter((cart: any) => (cart?.color?.name == detailProduct?.name)&&cart?.href==product?.href)
       ?.map((ele) => ele?.count)
       ?.reduce((total, countnum) => total + countnum, 0);
-  }, [detailProduct,carts]);
+  }, [detailProduct,carts,product?.href]);
 
-
-
+  const colors=useMemo(()=>{
+    let newColors=[] as {_id:string,name:string,hex:string}[]
+    product?.color?.map((colorEle:{_id:string,name:string,hex:string}[]) => Array?.isArray(colorEle) && colorEle?.map((eachColor:{_id:string,name:string,hex:string}) =>newColors?.map((elem:any)=>elem?.name)?.includes(eachColor.name)==false?newColors.push(eachColor):null))
+    return newColors
+  },[product?.color])
+  const price =useMemo(()=>{
+   
+    return product?.sizes?.find((sizecom:any)=>sizecom?.colors?.map((color:any)=>color?._id)?.includes(detailProduct?._id))?.price
+   },[product,detailProduct])
   return (
-    <Dialog onClose={handleClose} open={open} sx={{ borderRadius: "5px" }}>
-      <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Box>
+    <Dialog onClose={handleClose} open={open} sx={{ borderRadius: "5px",".MuiPaper-root":{maxWidth:{lg:"60%",md:"70%",sm:"80%",xs:"90%"}} }}>
+      <Box sx={{ display: "flex", alignItems: "center",flexDirection:{lg:"row",md:"row",sm:"column",xs:"column"} }}>
+        <Box >
           <Image src={product?.image} width="300" height="300" alt="" />
         </Box>
         <Box
@@ -71,7 +79,7 @@ const DialogProduct = ({
             alignItems: "flex-start",
             display: "flex",
             flexDirection: "column",
-            gap: "12px",
+            gap: "12px"
           }}
         >
           <IconButton
@@ -102,8 +110,8 @@ const DialogProduct = ({
                 Math.min(...product?.price)}
           </Typography>
           <Typography sx={{ my: 1 }}>{product?.desc}</Typography>
-          <Box>
-            <Typography sx={{ display: "flex", alignItems: "center", mx: 1 }}>
+          <Box sx={{flexWrap:"wrap"}}>
+            <Typography sx={{ display: "flex", alignItems: "center", mx: 1,flexWrap:"wrap" ,gapY:2}}>
               Select color:
               <Box sx={{ display: "flex" }}>
                 {product?.color?.map(
@@ -115,47 +123,48 @@ const DialogProduct = ({
                         sx={{
                           backgroundColor: colorEle,
                           width: "15px",
-                          p: 1,
+                          p: 2,
+                          mx:2,
                           height: "15px",
                           borderRadius: "50%",
                           display: "block",
                           border: "1px solid grey",
+                          outlineOffset:"4px",
+                          outline:active==colorEle?"1px solid black":"1px solid gray",
                         }}
+                        onClick={()=>{setValue("color",colorEle);setActive(colorEle)}}
+
                       />
                     )
                 )}
-                {product.color.map(
-                  (color:any) =>
-                    Array.isArray(color) &&
-                    color.map(
-                      (eachColor, index) =>
+                    {colors.map(
+                      (eachColor:{_id:string,name:string,hex:string}, index) =>
                         Boolean(eachColor.hex) && (
                           <Typography
                           key={index}
                             component="span"
-                            
                             sx={{
                               backgroundColor: `#${eachColor.hex}`,
                               width: "15px",
-                              p: 1,
+                              p: 2,
                               height: "15px",
+                              mx:1,
                               borderRadius: "50%",
                               display: "block",
                               border: "1px solid grey",
                               cursor: "pointer",
+                              outlineOffset:"4px",
+                              outline:active==eachColor?._id?"1px solid black":"1px solid gray",
                             }}
-                            onClick={() => {
-                              
-                              setValue("color", { ...eachColor });
-                            }}
+                            onClick={()=>{setValue("color",{...eachColor});setActive(eachColor?._id);setCount(1)}}
                           />
                         )
-                    )
-                )}
+                    )}
+               
               </Box>
               
             </Typography>
-            <Divider />
+            <Divider sx={{my:2}}/>
             <Box sx={{ display: "flex",my:2 }}>
             <Typography sx={{ mx: 1 }}>
              Age:
@@ -163,8 +172,8 @@ const DialogProduct = ({
              <Select
               disabled={false}
               label="size"
-              value={size}
-             onChange={(value)=>{setValue("size",value[0]?.value)}}
+              // value={size}
+             onChange={(value)=>{setValue("size",value?.value)}}
              options={product?.sizes?.map((ele:any)=>({
               value:ele,
               id:ele?.size,
@@ -177,6 +186,8 @@ const DialogProduct = ({
              />
              
             </Box>
+            <Typography sx={{color:(theme: Theme) => theme.palette.primary.main,display:"block"}}>${price}</Typography>
+
           </Box>
           <Box sx={{ display: "flex" }}>
             <Box
@@ -264,6 +275,19 @@ const DialogProduct = ({
                 {tag}
               </Box>
             ))}
+             
+              <Box
+              key={product?.category?.name}
+                sx={{
+                  color: (theme: Theme) => theme.palette.primary.main,
+                  mx: 0.5,
+                  p: 1,
+                  borderRadius: "5px",
+                }}
+              >
+                {product?.category?.name}
+              </Box>
+          
             <Box sx={{ border: "1px solid", borderRadius: "4px", p: 1 }}>
               SKU: BE/BS2/0007
             </Box>

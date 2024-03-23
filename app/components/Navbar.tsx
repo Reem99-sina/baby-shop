@@ -42,6 +42,7 @@ function Navbar() {
   const search = watch("search");
   // setValue("search","efijeifeji")
   const searchInProducts=useCallback(()=>{
+    console.log(products.filter((product) => product.title.includes(search)),search,"search")
     setProducts(products.filter((product) => product.title.includes(search)));
     setCategorys(
       productCatergorys.filter((category) => category.title.includes(search))
@@ -133,7 +134,10 @@ function Navbar() {
                 <ListItem sx={{ color: "gray" }}> Products </ListItem>
               )}
               {Products?.map((product:any) => (
-                <ListItem key={product} sx={{ display: "flex", cursor: "pointer" }}>
+                <ListItem key={product} sx={{ display: "flex", cursor: "pointer" }}   onClick={() => {
+                  router.push(`/product/${product.href}`);
+                  setopen(false);
+                }}>
                   <Image src={product.image} alt="" width="100" height="100" />
                   <Box>
                     <Typography

@@ -32,19 +32,23 @@ function ProductCategory({ params }: { params: { title: string } }) {
   const [gridNumber, setGridNumber] = useState(0);
   const [Open, setOpen] = useState(false);
   const category=useActiveCategory() as ActiveCartStore
+
   const catergory = useMemo(() => {
     return category.categories.length==0?productCatergorys.find((cat) => cat.href == params.title): category.categories.find((cat)=>cat.slug==params.title);
   }, [params.title,category.categories]);
+  
   const { set, add, remove, update, Filters } = useActiveFilter();
+  
   useEffect(() => {
     update({ size: active, numberColumn: gridNumber });
   }, [active, gridNumber,update]);
+  
   useMemo(()=>{
-    axios.get(`https://competition-e-commerce-backend-1.vercel.app/categories/${params.title}`).then((res)=>{
-      category.update(params.title,{products:res.data.products})
+    axios.get(`https://competition-e-commerce-backend-1.vercel.app/categories/${params?.title}`).then((res)=>{
+      category?.update(params?.title,{products:res.data.products})
    
     })
-  },[category,params.title])
+  },[])
   return (
     <>
       <Container sx={{ my: 3, color: "black" }}>
@@ -193,6 +197,7 @@ function ProductCategory({ params }: { params: { title: string } }) {
               tags={product?.tags}
               categories={product?.categories}
               sizes={product?.sizes}
+              category={product?.category}
             />
           ))}
         </Box>
