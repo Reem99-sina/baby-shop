@@ -24,7 +24,7 @@ function CardImpression({
         <Box sx={{ display: "flex", alignItems: "center", my: 3 }}>
           <Avatar src={logo} />
           <Typography sx={{ mx: 2 }}>{name}</Typography>/
-          <Typography sx={{ color: (theme: Theme) => theme.palette.grey[400] }}>
+          <Typography sx={{ color: (theme: Theme) => theme.palette.grey[400],mx:1 }}>
             {career}
           </Typography>
         </Box>

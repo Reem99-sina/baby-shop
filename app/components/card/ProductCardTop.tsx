@@ -33,7 +33,7 @@ function ProductCardTop({
           alignItems: "center",
           position: "relative",
           boxShadow: "unset",
-          width: { lg: "25%", md: "25%", sm: "50%", xs: "50%" },
+          width: { lg: "25%", md: "25%", sm: "50%", xs: "100%" },
         }}
         onMouseEnter={() => setAppear(true)}
         onMouseLeave={() => setAppear(false)}

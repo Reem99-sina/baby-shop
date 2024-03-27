@@ -42,8 +42,8 @@ function CardCustom({
         },
       }}
     >
-      <CardMedia component="img" alt="green iguana" image={image} />
-      <CardContent>
+      <CardMedia component="img" alt="green iguana" image={image} sx={{flex:1}}/>
+      <CardContent sx={{flex:1}}>
         <Typography gutterBottom variant="h5" component="div">
           {title}
         </Typography>

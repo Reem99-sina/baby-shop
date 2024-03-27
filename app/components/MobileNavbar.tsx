@@ -7,9 +7,14 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import useActiveCart, { ActiveCartStore } from "@/app/hooks/useCart";
 
+import CartModel from "./model/CartModel";
+import LoginModel from "./model/LoginModel";
+
 function MobileNavbar() {
   const router = useRouter();
   const [Open, setOpen] = useState(false);
+  const [OpenLogin, setOpenLogin] = useState(false);
+
   const { carts, add, remove } = useActiveCart() as ActiveCartStore;
 
   return (
@@ -34,7 +39,7 @@ function MobileNavbar() {
         </IconButton>
         <IconButton
           sx={{ fontSize: "25px", flex: 1, borderRadius: "unset" }}
-          onClick={() => router.push("/login")}
+          onClick={() => setOpenLogin(true)}
         >
           <PersonOutlinedIcon />
         </IconButton>
@@ -65,6 +70,9 @@ function MobileNavbar() {
           </Typography>
         </IconButton>
       </Box>
+      <CartModel isOpen={Open} onClose={() => setOpen(false)} />
+      <LoginModel isOpen={OpenLogin} onClose={() => setOpenLogin(false)}/>
+
     </>
   );
 }

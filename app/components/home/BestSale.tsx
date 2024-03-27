@@ -72,7 +72,7 @@ const BestSale = () => {
               backgroundPosition: "bottom right",
               backgroundSize: "cover",
               position: "relative",
-              height: "300px",
+              height:{lg:"300px",md:"300px",sm:"500px",xs:"500px"},
               mx: { lg: "unset", md: "auto", sm: "auto", xs: "auto" },
               width: { lg: "46%", md: "80%", sm: "80%", xs: "80%" },
               flex: { lg: 3, md: "unset", sm: "unset", xs: "unset" },

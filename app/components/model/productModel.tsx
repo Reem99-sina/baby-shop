@@ -39,7 +39,7 @@ function ProductModel() {
     },[randomIndex])
 
   return (
-    <Box sx={{position:"fixed",color:"black",m:4,bottom:appear?0:"-15%",left:0,zIndex:2000,borderRadius:"8px",transition:"bottom 1s",backgroundColor:"white",boxShadow: "0px 0px 10px 0px rgba(0,0,0,.1)"}}>
+    <Box sx={{position:"fixed",color:"black",p:2,m:2,bottom:appear?{lg:0,md:0,sm:"100px",xs:"100px"}:"-15%",left:0,zIndex:2000,borderRadius:"8px",transition:"bottom 1s",backgroundColor:"white",boxShadow: "0px 0px 10px 0px rgba(0,0,0,.1)"}}>
         <Box sx={{ display:"flex",alignItems:"center"}}>
             <Image src={product?.image?product?.image:""}alt="" width="100"height="100"/>
             <Box sx={{display:"flex",flexDirection:"column",mx:5,alignItems:"center",justifyContent:"center"}}>

@@ -82,7 +82,7 @@ function MainNav() {
         <AppBar
           component="nav"
           sx={{
-            flex: 4,
+            flex: {lg:4,md:4,sm:4,xs:1},
             backgroundColor: "white",
             border: "0px",
             boxShadow: "unset",

@@ -71,7 +71,7 @@ function ProductCategory({ params }: { params: { title: string } }) {
           </Breadcrumbs>
         </Box>
         <Divider sx={{ m: 3 }} />
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Box sx={{display: {lg:"flex",md:"flex",sm:"none",xs:"none"}, justifyContent: "space-between" }}>
           <Typography sx={{ flex: 1 }}>
             Showing all {catergory?.products?.length} results
           </Typography>
@@ -182,7 +182,56 @@ function ProductCategory({ params }: { params: { title: string } }) {
               Filters
             </Button>
           </Box>
+          
         </Box>
+        <Box sx={{display:{lg:"none",md:"none",sm:"flex",xs:"flex"},justifyContent:"space-between"}}>
+              <Button
+                    sx={{  color: "black",display: "flex",
+                    justifyContent: "flex-start" }}
+                    onClick={() => setOpen(true)}
+                  >
+                    <MenuOpenSharpIcon />
+                    Filters
+                  </Button>
+                  <Box sx={{ color: "black",display: "flex",
+                    justifyContent: "flex-end" }}>
+                    <ReactSelect
+                      isMulti={false}
+                      onChange={(label) => update({ store: label })}
+                      options={[
+                        {
+                          value: 1,
+                          label: "Default Sorting",
+                        },
+                        {
+                          value: 2,
+                          label: "sort by popularity",
+                        },
+                        {
+                          value: 3,
+                          label: "sort by average rating",
+                        },
+                        {
+                          value: 4,
+                          label: "sort by latest",
+                        },
+                      ]}
+                      // menuPortalTarget={document?.body}
+                      styles={{
+                        menuPortal: (base) => ({
+                          ...base,
+                          zIndex: 9999,
+                        }),
+                        control: (baseStyles, state) => ({
+                          ...baseStyles,
+                          border: "unset",
+                          color: "black",
+                        }),
+                      }}
+                      placeholder="Default Sorting"
+                    />
+                  </Box>
+              </Box>
         <FilterModel isOpen={Open} onClose={() => setOpen(false)} />
         <Box sx={{ display: "flex",flexWrap:"wrap" }}>
           {catergory?.products?.map((product:any) => (

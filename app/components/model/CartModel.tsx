@@ -28,7 +28,7 @@ function CartModel({
           position: "fixed",
           top: 0,
           right: 0,
-          width: "24rem",
+          width:{lg:"24rem",md:"24rem",sm:"24rem",xs:"100%"},
         }}
       >
         <Box
@@ -104,7 +104,7 @@ function CartModel({
               flexDirection: "column",
               position: "fixed",
               bottom: 0,
-              width: "24rem",
+              width: {lg:"24rem",md:"24rem",sm:"24rem",xs:"100%"},
             }}
           >
             <Box
